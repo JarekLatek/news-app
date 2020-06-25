@@ -1,0 +1,11 @@
+.NewsList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.PagePagination {
+  width: 100%;
+  text-align: center;
+  padding: 32px;
+}
