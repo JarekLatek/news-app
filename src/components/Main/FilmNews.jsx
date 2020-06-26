@@ -26,7 +26,7 @@ const FilmNews = () => {
       .then((response) => response.json())
       .then((res) => {
         setResults(res);
-        setPagesNumber(Math.ceil(res.totalResults / 15));
+        setPagesNumber(Math.ceil(res.totalResults / 10));
       });
   }, [startDate, endDate, page, lang]);
 

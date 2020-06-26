@@ -54,7 +54,7 @@ class HomePage extends React.Component {
       .then(results => {
         this.setState({ results });
         this.setState({
-          pagesNumber: Math.ceil(results.totalResults / 15)
+          pagesNumber: Math.ceil(results.totalResults / 10)
         });
       });
   }
@@ -68,20 +68,27 @@ class HomePage extends React.Component {
   setPage = page => this.setState({ page });
 
   render() {
-    const { results, pagesNumber, category, page } = this.state;
+    const { results, pagesNumber, page } = this.state;
 
     if (!results) return null;
+
     return (
       <div id="HomePage">
         <NewsFiltersBar 
           onCategoryChange={this.setCategory}
-          onSearchQueryChange={this.setSearchQuery}
-          category={category} />
-        <NewsList 
-          articles={results.articles}
-          onPageChange={this.setPage}
-          pagesNumber={pagesNumber}
-          currentPage={page} />
+          onSearchQueryChange={this.setSearchQuery} />
+        {results.totalResults !== 0 ? (
+          <NewsList
+            articles={results.articles.filter((item, index, self) => {
+              return index === self.findIndex(t => t.title === item.title);
+            })}
+            onPageChange={this.setPage}
+            pagesNumber={pagesNumber}
+            currentPage={page}
+          />
+        ) : (
+          <h1>No results</h1>
+        )}
       </div>
     );
   }
